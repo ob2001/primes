@@ -18,7 +18,7 @@ def calc(x, term = True):
             i += 1
         else:
             primes.append(n)
-            return primes, None
+            return (primes, None) if term else primes
 
 if __name__ == "__main__":
     mode = {"s": "single", "r": "range"} # "s" for single integer, "r" to find primes up to given integer
@@ -31,5 +31,5 @@ if __name__ == "__main__":
             print(f"{x} is prime!") if n == None else print(f"{x} is divisible by {n}")
         case "range":
             x = int(input("To what upper bound?: "))
-            primes, _ = calc(x, False)
+            primes = calc(x, False)
             print(f"Primes found: {primes}\n\nNum primes found: {len(primes)}")
