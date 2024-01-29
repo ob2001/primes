@@ -1,8 +1,11 @@
-from math import sqrt
+import numpy as np
+import sys
+
+# np.set_printoptions(threshold=sys.maxsize)
 
 def calc(x, term = True):
-    arr = [i for i in range(2, int(sqrt(x)) + 1 if term else x)]
-    i = 1
+    sqrt = np.sqrt(x)
+    arr = np.arange(2, int(sqrt + 1) if term else x)
     primes = []
     
     while True:
@@ -11,14 +14,16 @@ def calc(x, term = True):
             k = x/n
             if k.is_integer():
                 primes.append(n)
-                return primes, n
+                return np.array(primes)
+        elif n > sqrt:
+            return np.concatenate((np.array(primes), arr))
+        
         if len(arr) > 1:
             primes.append(n)
-            arr = [arr[i] for i in range(1, len(arr)) if arr[i] % n != 0]
-            i += 1
+            arr = arr[arr % n != 0]
         else:
             primes.append(n)
-            return (primes, None) if term else primes
+            return (np.array(primes), None) if term else np.array(primes)
 
 if __name__ == "__main__":
     mode = {"s": "single", "r": "range"} # "s" for single integer, "r" to find primes up to given integer
